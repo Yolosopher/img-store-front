@@ -1,9 +1,12 @@
+import { Role } from "@/types";
 import { create } from "zustand";
 export type ThumbSize = "default" | "medium" | "high";
 
 type AuthInfoType = {
-  username: string;
+  _id: string;
   email: string;
+  full_name: string;
+  role: Role;
   auth_token: string;
 };
 

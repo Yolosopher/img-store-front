@@ -1,57 +1,64 @@
-# Frontend Shadow Canopy Template
+# img-store-front
 
-This is a frontend template designed to kickstart your project with modern tooling and libraries. It provides a setup for building dynamic web applications with React, Tailwind CSS, and Vite.
+This is the front-end repository for the img-store website.
 
-## Features
+## Description
 
-- **React**: A JavaScript library for building user interfaces.
-- **Tailwind CSS**: A utility-first CSS framework for rapid UI development.
-- **Vite**: A next-generation frontend tooling for web development.
-- **ESLint**: A pluggable linting utility for JavaScript and JSX.
-- **TypeScript**: A typed superset of JavaScript that compiles to plain JavaScript.
+img-store-front is a React.js application designed to provide users with a user-friendly interface for interacting with the img-store website. Users can sign in/up, generate API tokens, upload images as private or public, manage their images, and embed them into their websites.
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/Yolosopher/img-store-front.git
+   ```
+
+2. Navigate into the project directory:
+
+   ```bash
+   cd img-store-front
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
 
 ## Usage
 
-1. Clone this repository.
-2. Install dependencies using `npm install`.
-3. Start the development server with `npm run dev`.
-4. Build the project with `npm run build`.
-5. Run linting with `npm run lint`.
+To start the development server:
 
-## Dependencies
+```bash
+npm run dev
+```
 
-- **@radix-ui/react-avatar**: React components for avatar display.
-- **@radix-ui/react-dropdown-menu**: Accessible dropdown menus for React.
-- **@radix-ui/react-icons**: Collection of high-quality React icons.
-- **@radix-ui/react-slot**: A simple React component for slot-based UI.
-- **@radix-ui/react-toast**: Toast notifications for React applications.
-- **@radix-ui/react-tooltip**: Tooltip components for React.
-- **class-variance-authority**: A tool for class variance analysis.
-- **clsx**: A utility for conditionally joining class names.
-- **lucide-react**: A library of simply beautiful open-source icons.
-- **react-router-dom**: Declarative routing for React applications.
-- **zustand**: A small, fast, and scalable state management solution.
+To build the project for production:
 
-## Development Dependencies
+```bash
+npm run build
+```
 
-- **@types/node**: TypeScript type definitions for Node.js.
-- **@types/react**: TypeScript type definitions for React.
-- **@typescript-eslint/eslint-plugin**: ESLint plugin for TypeScript.
-- **@typescript-eslint/parser**: ESLint parser for TypeScript.
-- **@vitejs/plugin-react-swc**: Vite plugin for React fast refresh.
-- **autoprefixer**: PostCSS plugin to parse CSS and add vendor prefixes.
-- **eslint**: A pluggable JavaScript linter.
-- **eslint-plugin-react-hooks**: ESLint rules for React hooks.
-- **eslint-plugin-react-refresh**: ESLint rules for React refresh.
-- **postcss**: A tool for transforming CSS with JavaScript plugins.
-- **tailwindcss**: A utility-first CSS framework for rapidly building custom designs.
-- **typescript**: TypeScript compiler for JavaScript.
-- **vite**: A fast frontend build tool.
+To preview the production build:
 
-## Author
+```bash
+npm run preview
+```
 
-Created with ❤️ by Yolosopher.
+## Technologies Used
+
+- React.js
+- React Router DOM
+- Zustand (for state management)
+- Tailwind CSS
+- Vite (for build tooling)
+- TypeScript
 
 ## License
 
 This project is licensed under the ISC License.
+
+## Author
+
+Created with ❤️ by Yolosopher.

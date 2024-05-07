@@ -17,12 +17,18 @@ type CopyClipboardProps = {
   children: React.ReactNode;
   as: keyof JSX.IntrinsicElements;
   className?: string;
+  title?: string;
+  message?: string;
+  withoutTooltip?: boolean;
 };
 const CopyClipboard = ({
   as,
   children,
   contentToCopy,
   className,
+  title,
+  message,
+  withoutTooltip,
 }: CopyClipboardProps) => {
   const [open, setOpen] = useState<boolean>(false);
   const As = as;
@@ -37,10 +43,18 @@ const CopyClipboard = ({
           <span>Copied</span>
         </div>
       ),
-      description: `Copied text: ${contentToCopy}`,
+      description: message || `Copied text: ${contentToCopy}`,
     });
   };
-  return (
+  return withoutTooltip ? (
+    <As
+      onClick={copyContent}
+      {...(title && { title: title })}
+      className={cn("select-all cursor-pointer", className || "")}
+    >
+      {children}
+    </As>
+  ) : (
     <TooltipProvider delayDuration={300}>
       <Tooltip
         open={open}
@@ -51,6 +65,7 @@ const CopyClipboard = ({
         <TooltipTrigger asChild>
           <As
             onClick={copyContent}
+            {...(title && { title: title })}
             className={cn("select-all cursor-pointer", className || "")}
           >
             {children}
