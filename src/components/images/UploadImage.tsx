@@ -48,6 +48,9 @@ const UploadImage = ({ refetch }: UploadImageParams) => {
             description: "Image uploaded successfully",
           });
 
+          // clean form
+          setUploadFile(null);
+
           // After creating the token, refetch the data
           refetch();
         }
@@ -96,7 +99,7 @@ const UploadImage = ({ refetch }: UploadImageParams) => {
           </Button>
         </form>
       </div>
-      <div className="bg-zinc-600 h-52 md:h-72 w-full p-4 text-center rounded-md">
+      <div className="bg-secondary h-52 md:h-72 w-full p-4 text-center rounded-md">
         <RenderPayloadImage file={uploadFile} />
       </div>
     </div>

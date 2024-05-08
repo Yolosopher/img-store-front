@@ -12,7 +12,6 @@ const Images = ({
   refetch: () => void;
   access_type: ReadAccess;
 }) => {
-  console.log(data);
   return isLoading ? (
     <Loader className="mr-2 h-4 w-4 animate-spin" />
   ) : error ? (

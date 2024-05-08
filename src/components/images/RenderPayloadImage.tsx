@@ -14,6 +14,8 @@ const RenderPayloadImage = ({ file }: { file: File | null }) => {
     };
     if (file) {
       renderImage();
+    } else {
+      setDataUrl("");
     }
   }, [file]);
 
