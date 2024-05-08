@@ -57,6 +57,16 @@ const UserNav = () => {
       </li>
       <li>
         <NavLink
+          to="/images"
+          className={({ isActive }) =>
+            cn("hover:underline", isActive ? "text-primary" : "")
+          }
+        >
+          Images
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
           to="/profile"
           className={({ isActive }) =>
             cn("hover:underline", isActive ? "text-primary" : "")

@@ -8,6 +8,8 @@ This endpoint is used to retrieve information about all images.
 - Pathname: `/image/all`
 - Headers:
   - `Authorization`: Bearer token (API token)
+- Query Params:
+  - `access`: `public` or `private`
 
 #### Response
 

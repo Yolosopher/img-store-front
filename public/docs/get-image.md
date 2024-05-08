@@ -6,7 +6,7 @@ This endpoint is used to retrieve a specific image by its name. Images with acce
 
 - Method: GET
 - Pathname: `/image/:name`
-- Parameters:
+- Pathname Parameters:
   - `name`: The name of the image.
 - Headers?:
   - `Authorization`: Bearer token (API token)

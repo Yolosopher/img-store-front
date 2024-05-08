@@ -1,6 +1,7 @@
 import LoginPage from "@/pages/auth/login/LoginPage";
 import RegisterPage from "@/pages/auth/register/RegisterPage";
 import DocsPage from "@/pages/docs/DocsPage";
+import ImagesPage from "@/pages/images/ImagesPage";
 import Layout from "@/pages/layouts/Layout";
 import ProtectedLayout from "@/pages/layouts/ProtectedLayout";
 import ProfilePage from "@/pages/profile/ProfilePage";
@@ -18,8 +19,8 @@ const Router = () => {
         </Route>
         <Route element={<ProtectedLayout />}>
           <Route path="/" element={<DocsPage />} />
-
           <Route path="/tokens" element={<TokensPage />} />
+          <Route path="/images" element={<ImagesPage />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Route>
       </Route>

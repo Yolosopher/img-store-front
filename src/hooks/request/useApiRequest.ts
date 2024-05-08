@@ -6,10 +6,12 @@ type ApiRequestParams = {
   path: string;
   body?: any;
   auth?: boolean;
+  apiAuth?: boolean;
 };
 
 const useApiRequest = () => {
   const auth_token = authStore((state) => state.authInfo?.auth_token);
+  const auth_api_token = authStore((state) => state.authInfo?.auth_api_token);
   const clearAuthInfo = authStore((state) => state.clearAuthInfo);
 
   const request = async ({
@@ -17,6 +19,7 @@ const useApiRequest = () => {
     method,
     path,
     auth,
+    apiAuth,
   }: ApiRequestParams): Promise<
     { success: true; data: any } | { success: false; error: any } | void
   > => {
@@ -32,7 +35,6 @@ const useApiRequest = () => {
       if (body) {
         if (body instanceof FormData) {
           payload.body = body;
-          payload.headers["Content-Type"] = "multipart/form-data";
         } else {
           payload.headers["Content-Type"] = "application/json";
           payload.body = JSON.stringify(body);
@@ -40,6 +42,8 @@ const useApiRequest = () => {
       }
       if (auth) {
         payload.headers["Authorization"] = `Bearer ${auth_token}`;
+      } else if (apiAuth) {
+        payload.headers["Authorization"] = `Bearer ${auth_api_token}`;
       }
 
       const res = await fetch(`${CONFIG.backend_url}${path}`, payload);
@@ -51,7 +55,11 @@ const useApiRequest = () => {
         };
       }
 
-      const data = await res.json();
+      const data = res.headers
+        .get("Content-Type")
+        ?.startsWith("application/json")
+        ? await res.json()
+        : await res.blob();
 
       if (res.status === 401) {
         throw new Error("Unauthorized");

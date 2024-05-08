@@ -7,8 +7,8 @@ This endpoint is used to upload an image by providing image file and access type
 - Method: POST
 - Pathname: `/image/upload`
 - Content-Type: `multipart/form-data`
-- Parameters:
-  - `access`: The type of access for the uploaded image.
+- Body Parameters:
+  - `access`: The type of access for the uploaded image `public` or `private`.
   - `image`: The image file to be uploaded.
 - Headers:
   - `Authorization`: Bearer token (API token)

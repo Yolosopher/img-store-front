@@ -8,6 +8,7 @@ type AuthInfoType = {
   full_name: string;
   role: Role;
   auth_token: string;
+  auth_api_token: string;
 };
 
 interface AuthState {

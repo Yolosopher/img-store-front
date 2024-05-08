@@ -6,8 +6,10 @@ This endpoint is used to change the access level of an image by its name.
 
 - Method: PATCH
 - Pathname: `/image/:name`
-- Parameters:
+- Pathname Parameters:
   - `name`: The name of the image whose access level needs to be changed.
+- Body Parameters:
+  - `access`: `public` or `private`
 - Headers:
   - `Authorization`: Bearer token (API token)
 
