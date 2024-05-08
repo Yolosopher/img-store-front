@@ -13,12 +13,12 @@ const Router = () => {
     <Routes>
       {/* Routes go here */}
       <Route element={<Layout />}>
+        <Route path="/" element={<DocsPage />} />
         <Route path="/auth">
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
         </Route>
         <Route element={<ProtectedLayout />}>
-          <Route path="/" element={<DocsPage />} />
           <Route path="/tokens" element={<TokensPage />} />
           <Route path="/images" element={<ImagesPage />} />
           <Route path="/profile" element={<ProfilePage />} />

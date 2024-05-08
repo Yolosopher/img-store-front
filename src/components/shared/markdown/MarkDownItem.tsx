@@ -12,7 +12,7 @@ const MarkDownItem = ({
   src: string;
 }) => {
   return (
-    <div className="p-4">
+    <div className="py-4">
       <H3 id={uniqueId} className="mb-4 text-primary uppercase">
         <HashLink smooth to={`/#${uniqueId}`}>
           {title}
