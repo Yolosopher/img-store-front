@@ -140,7 +140,7 @@ const ProfilePage = () => {
           Hello, <span className="capitalize">{authInfo?.full_name}</span>
         </H1>
       </div>
-      <div className="grid gap-2 grid-cols-2 content-start">
+      <div className="grid gap-6 md:gap-2 grid-cols-1 md:grid-cols-2 content-start">
         <div className="flex flex-col gap-4 bg-card">
           <form
             onSubmit={handlePasswordSubmit}
