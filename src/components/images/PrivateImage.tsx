@@ -30,8 +30,8 @@ const PrivateImage = ({ name, ...args }: PrivateImageProps) => {
             reader.readAsDataURL(result.data);
           }
         }
-      } catch (error) {
-        console.error(error);
+      } catch (error: any) {
+        console.error(error.message);
       }
     };
     imageUrlGenerator();
