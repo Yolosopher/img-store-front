@@ -1,3 +1,4 @@
+import useErrorHandler from "@/hooks/error-handler/useErrorHandler";
 import useApiRequest from "@/hooks/request/useApiRequest";
 import { useEffect, useState } from "react";
 
@@ -6,6 +7,7 @@ interface PrivateImageProps extends React.HTMLProps<HTMLImageElement> {
 }
 
 const PrivateImage = ({ name, ...args }: PrivateImageProps) => {
+  const errorHandler = useErrorHandler();
   const request = useApiRequest();
   const [dataUrl, setDataUrl] = useState<string>("");
 
@@ -19,7 +21,7 @@ const PrivateImage = ({ name, ...args }: PrivateImageProps) => {
         });
         if (result) {
           if (!result.success) {
-            throw new Error(result.error?.message || result.error);
+            errorHandler(result.error);
           } else {
             const reader = new FileReader();
             reader.onload = () => {

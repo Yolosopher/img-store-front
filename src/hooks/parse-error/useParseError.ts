@@ -2,7 +2,6 @@ import { toast } from "@/components/ui/use-toast";
 
 const useParseError = () => {
   const parseError = (resBody: any) => {
-    console.log(resBody);
     const { errors } = resBody;
 
     errors.forEach(

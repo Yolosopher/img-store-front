@@ -2,15 +2,16 @@ import AuthInput from "@/components/auth/AuthInput";
 import { Button } from "@/components/ui/button";
 import { H1, H3 } from "@/components/ui/typography/Heading";
 import { toast } from "@/components/ui/use-toast";
-import useParseError from "@/hooks/parse-error/useParseError";
+import useErrorHandler from "@/hooks/error-handler/useErrorHandler";
 import useApiRequest from "@/hooks/request/useApiRequest";
+import { getParsedError } from "@/lib/utils";
 import authStore from "@/stores/authStore";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 
 const ProfilePage = () => {
-  const parseError = useParseError();
+  const errorHandler = useErrorHandler();
   const [isLoadingPassword, setIsLoadingPassword] = useState<boolean>(false);
   const [isLoadingFullName, setIsLoadingFullName] = useState<boolean>(false);
   const authInfo = authStore((state) => state.authInfo);
@@ -27,7 +28,8 @@ const ProfilePage = () => {
     });
     if (result) {
       if (!result.success) {
-        throw new Error(result.error?.message || result.error);
+        const parsedError = getParsedError(result.error);
+        throw new Error(parsedError);
       } else {
         return result.data.user;
       }
@@ -65,8 +67,7 @@ const ProfilePage = () => {
 
       if (result) {
         if (!result.success) {
-          parseError(result.error);
-          throw new Error(result.error?.message || result.error);
+          errorHandler(result.error);
         } else {
           const auth_token = result.data?.auth_token;
           const message =
@@ -82,8 +83,8 @@ const ProfilePage = () => {
           });
         }
       }
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      errorHandler(error.message);
     } finally {
       setIsLoadingPassword(false);
     }
@@ -104,7 +105,7 @@ const ProfilePage = () => {
 
       if (result) {
         if (!result.success) {
-          parseError(result.error);
+          errorHandler(result.error);
         } else {
           const message =
             result.data?.message || "Full name updated successfully";
@@ -122,8 +123,8 @@ const ProfilePage = () => {
 
       // Call refetch
       refetch();
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      console.error(error.message);
     } finally {
       setIsLoadingFullName(false);
     }

@@ -80,7 +80,7 @@ const useApiRequest = () => {
       if (error.message === "Unauthorized") {
         clearAuthInfo();
       } else {
-        return { success: false, error: error };
+        return { success: false, error: error.message };
       }
     }
   };

@@ -1,6 +1,7 @@
 import CreateApiToken from "@/components/tokens/CreateApiToken";
 import RenderApiTokens from "@/components/tokens/RenderApiTokens";
 import useApiRequest from "@/hooks/request/useApiRequest";
+import { getParsedError } from "@/lib/utils";
 import { Loader } from "lucide-react";
 import { useQuery } from "react-query";
 
@@ -9,8 +10,6 @@ const TokensPage = () => {
   const { data, isLoading, error, refetch } = useQuery(
     "api_tokens",
     async () => {
-      // Call API to get user profile
-
       const result = await request({
         path: "/auth/self",
         method: "GET",
@@ -18,7 +17,8 @@ const TokensPage = () => {
       });
       if (result) {
         if (!result.success) {
-          throw new Error(result.error?.message || result.error);
+          const parsedError = getParsedError(result.error);
+          throw new Error(parsedError);
         } else {
           return result.data.user.api_tokens;
         }

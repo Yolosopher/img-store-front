@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import Images from "../../components/images/Images";
 import { ReadAccess } from "@/types";
 import UploadImage from "@/components/images/UploadImage";
+import { getParsedError } from "@/lib/utils";
 
 const ImagesPage = () => {
   const request = useApiRequest();
@@ -16,7 +17,8 @@ const ImagesPage = () => {
     });
     if (result) {
       if (!result.success) {
-        throw new Error(result.error?.message || result.error);
+        const parsedError = getParsedError(result.error);
+        throw new Error(parsedError);
       } else {
         return result.data;
       }
@@ -31,7 +33,8 @@ const ImagesPage = () => {
     });
     if (result) {
       if (!result.success) {
-        throw new Error(result.error?.message || result.error);
+        const parsedError = getParsedError(result.error);
+        throw new Error(parsedError);
       } else {
         return result.data;
       }

@@ -6,20 +6,25 @@ import RadioInput from "./RadioInput";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import RenderPayloadImage from "./RenderPayloadImage";
+import { clearFileInput, getFileExtension } from "@/lib/utils";
+import CONFIG from "@/config";
+import useErrorHandler from "@/hooks/error-handler/useErrorHandler";
 
 type UploadImageParams = {
   refetch: () => void;
 };
+
 const UploadImage = ({ refetch }: UploadImageParams) => {
   const request = useApiRequest();
+  const errorHandler = useErrorHandler();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [uploadFile, setUploadFile] = useState<File | null>(null);
 
   const uploadImage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
+    const form = e.target as HTMLFormElement;
     try {
-      const form = e.target as HTMLFormElement;
       const access_input = form.access;
       const access = access_input.value;
 
@@ -41,7 +46,9 @@ const UploadImage = ({ refetch }: UploadImageParams) => {
 
       if (result) {
         if (!result.success) {
-          throw new Error(result.error?.message || result.error);
+          clearFileInput(form.image);
+          setUploadFile(null);
+          errorHandler(result.error);
         } else {
           toast({
             title: "Success",
@@ -49,21 +56,44 @@ const UploadImage = ({ refetch }: UploadImageParams) => {
           });
 
           // clean form
+          clearFileInput(form.image);
           setUploadFile(null);
 
           // After creating the token, refetch the data
           refetch();
         }
+      } else {
+        clearFileInput(form.image);
+        setUploadFile(null);
       }
     } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
+      clearFileInput(form.image);
+      errorHandler(error.message);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const onFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      clearFileInput(e.target);
+      return e.preventDefault();
+    }
+    const ext = getFileExtension(file!.name); // without the dot
+
+    if (!CONFIG.allowed_image_extensions.includes(ext)) {
+      toast({
+        title: "Error",
+        description: `Invalid file type. Allowed types are ${CONFIG.allowed_image_extensions.join(
+          ", "
+        )}`,
+        variant: "destructive",
+      });
+      clearFileInput(e.target);
+      return e.preventDefault();
+    }
+    setUploadFile(file);
   };
 
   return (
@@ -86,11 +116,9 @@ const UploadImage = ({ refetch }: UploadImageParams) => {
             id="image"
             name="image"
             type="file"
-            onChange={(e) => {
-              if (e.target.files) {
-                setUploadFile(e.target.files[0]);
-              }
-            }}
+            pattern=".*\.(gif|jpe?g|png|webp)$"
+            accept="image/*"
+            onChange={onFileInputChange}
             className="file:text-card-foreground text-card-foreground border-primary w-52 p-1.5 text-center"
             disabled={isLoading}
           />

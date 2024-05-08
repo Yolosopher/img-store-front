@@ -8,6 +8,7 @@ import { useState } from "react";
 import useApiRequest from "@/hooks/request/useApiRequest";
 import { toast } from "../ui/use-toast";
 import { RefetchType } from "./CreateApiToken";
+import useErrorHandler from "@/hooks/error-handler/useErrorHandler";
 
 const TokenUi = ({
   refetch,
@@ -16,6 +17,7 @@ const TokenUi = ({
   refetch: RefetchType;
   api_token: ApiTokenType;
 }) => {
+  const errorHandler = useErrorHandler();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const request = useApiRequest();
   const handleDelete = async () => {
@@ -36,7 +38,7 @@ const TokenUi = ({
 
       if (result) {
         if (!result.success) {
-          throw new Error(result.error?.message || result.error);
+          errorHandler(result.error);
         } else {
           toast({
             title: "Success",
@@ -48,11 +50,7 @@ const TokenUi = ({
         }
       }
     } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
+      errorHandler(error.message);
     } finally {
       setIsLoading(false);
     }

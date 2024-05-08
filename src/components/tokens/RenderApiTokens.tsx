@@ -6,6 +6,7 @@ import TokenUi from "./TokenUi";
 import useApiRequest from "@/hooks/request/useApiRequest";
 import { useState } from "react";
 import { toast } from "../ui/use-toast";
+import useErrorHandler from "@/hooks/error-handler/useErrorHandler";
 
 export type ApiTokenType = {
   token: string;
@@ -21,6 +22,7 @@ type RenderApiTokensParams = {
 const RenderApiTokens = ({ api_tokens, refetch }: RenderApiTokensParams) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const request = useApiRequest();
+  const errorHandler = useErrorHandler();
 
   const handleDeleteAll = async () => {
     setIsLoading(true);
@@ -35,7 +37,7 @@ const RenderApiTokens = ({ api_tokens, refetch }: RenderApiTokensParams) => {
 
       if (result) {
         if (!result.success) {
-          throw new Error(result.error?.message || result.error);
+          errorHandler(result.error);
         } else {
           toast({
             title: "Success",
@@ -47,11 +49,7 @@ const RenderApiTokens = ({ api_tokens, refetch }: RenderApiTokensParams) => {
         }
       }
     } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
+      errorHandler(error.message);
     } finally {
       setIsLoading(false);
     }

@@ -6,6 +6,7 @@ import { toast } from "../ui/use-toast";
 import useApiRequest from "@/hooks/request/useApiRequest";
 import { Button } from "../ui/button";
 import { Eye, EyeOff, Trash } from "lucide-react";
+import useErrorHandler from "@/hooks/error-handler/useErrorHandler";
 
 const ImageItem = ({
   image,
@@ -15,6 +16,7 @@ const ImageItem = ({
   refetch: () => void;
 }) => {
   const request = useApiRequest();
+  const errorHandler = useErrorHandler();
   const deleteImage = async () => {
     try {
       const payload: any = {
@@ -25,7 +27,7 @@ const ImageItem = ({
       const result = await request(payload);
       if (result) {
         if (!result.success) {
-          throw new Error(result.error?.message || result.error);
+          errorHandler(result.error);
         } else {
           toast({
             title: "Success",
@@ -37,11 +39,7 @@ const ImageItem = ({
         }
       }
     } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
+      console.error(error.message);
     }
   };
   const changeAccess = async () => {
@@ -57,7 +55,7 @@ const ImageItem = ({
       const result = await request(payload);
       if (result) {
         if (!result.success) {
-          throw new Error(result.error?.message || result.error);
+          errorHandler(result.error);
         } else {
           toast({
             title: "Success",
@@ -69,11 +67,7 @@ const ImageItem = ({
         }
       }
     } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
+      console.error(error.message);
     }
   };
   return (
