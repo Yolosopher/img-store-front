@@ -28,6 +28,7 @@ export const clearFileInput = (fileInput: HTMLInputElement) => {
     // ignore
   }
 };
+
 export const getParsedError = (resBody: any): string => {
   if (typeof resBody === "string") {
     return resBody;

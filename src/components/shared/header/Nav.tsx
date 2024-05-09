@@ -7,6 +7,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import OutsideClick from "../outside-click/OutsideClick";
 import useMediaQuery from "@/hooks/media-query/useMediaQuery";
+import { Role } from "@/types";
 
 interface NavLiProps extends React.HTMLAttributes<HTMLLIElement> {
   to: string;
@@ -34,6 +35,14 @@ const GuestNav = () => {
     <>
       <NavLi to="/auth/login" pageName="Login" />
       <NavLi to="/auth/register" pageName="Register" />
+    </>
+  );
+};
+const AdminNav = () => {
+  return (
+    <>
+      <NavLi to="/admin" pageName="Dashboard" />
+      <NavLi to="/admin/users" pageName="Users" />
     </>
   );
 };
@@ -69,7 +78,7 @@ const Nav = () => {
   };
   return (
     <OutsideClick
-      as="ul"
+      as="nav"
       disableClick={!burgerToggle}
       onClose={hideBurgerMenu}
       className="md:static"
@@ -97,6 +106,10 @@ const Nav = () => {
         }}
       >
         <NavLi to="/" pageName="Docs" />
+        {authInfo?.role &&
+          [Role.ADMIN, Role.SUPER_ADMIN].includes(authInfo.role) && (
+            <AdminNav />
+          )}
         {authInfo ? <UserNav /> : <GuestNav />}
       </ul>
     </OutsideClick>

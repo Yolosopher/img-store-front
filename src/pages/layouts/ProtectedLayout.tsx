@@ -8,10 +8,6 @@ const ProtectedLayout = () => {
     return <Navigate to="/auth/login" />;
   }
 
-  return (
-    <>
-      <Outlet />
-    </>
-  );
+  return <Outlet />;
 };
 export default ProtectedLayout;
