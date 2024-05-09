@@ -13,7 +13,7 @@ const MarkDownItem = ({
 }) => {
   return (
     <div className="py-4">
-      <H3 id={uniqueId} className="mb-4 text-primary uppercase">
+      <H3 id={uniqueId} className="mb-4 text-primary uppercase pl-2">
         <HashLink smooth to={`/#${uniqueId}`}>
           {title}
         </HashLink>

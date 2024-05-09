@@ -25,6 +25,7 @@ const MarkdownView = ({ src }: { src: string }) => {
       }}
       source={content}
       style={{ padding: 16 }}
+      className="rounded-md"
     />
   );
 };
