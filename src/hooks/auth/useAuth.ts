@@ -1,5 +1,6 @@
 import authStore from "@/stores/authStore";
 import useApiRequest from "../request/useApiRequest";
+import useErrorHandler from "../error-handler/useErrorHandler";
 
 interface LoginParams {
   email: string;
@@ -11,6 +12,7 @@ interface RegisterParams extends LoginParams {
 }
 
 const useAuth = () => {
+  const errorHandler = useErrorHandler();
   const { clearAuthInfo, setAuthInfo } = authStore();
 
   const request = useApiRequest();
@@ -25,10 +27,10 @@ const useAuth = () => {
       },
     });
     if (result) {
-      if (result.success) {
-        setAuthInfo(result.data.current_user);
+      if (!result.success) {
+        errorHandler(result.error);
       } else {
-        console.error(result.error);
+        setAuthInfo(result.data.current_user);
       }
     }
   };
@@ -44,10 +46,10 @@ const useAuth = () => {
     });
 
     if (result) {
-      if (result.success) {
-        setAuthInfo(result.data.current_user);
+      if (!result.success) {
+        errorHandler(result.error);
       } else {
-        console.error(result.error);
+        setAuthInfo(result.data.current_user);
       }
     }
   };
@@ -59,9 +61,7 @@ const useAuth = () => {
     });
 
     if (result) {
-      if (result.success) {
-        setAuthInfo(result.data.current_user);
-      } else {
+      if (!result.success) {
         console.error(result.error);
       }
     }

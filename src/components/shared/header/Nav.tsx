@@ -22,6 +22,7 @@ const NavLi = ({ to, pageName, ...args }: NavLiProps) => {
     >
       <NavLink
         to={to}
+        end
         className={({ isActive }) => cn(isActive ? "text-primary" : "")}
       >
         {pageName}
@@ -41,12 +42,11 @@ const GuestNav = () => {
 const AdminNav = () => {
   return (
     <>
-      <NavLi to="/admin" pageName="Dashboard" />
+      <NavLi to="/admin/dashboard" pageName="Dashboard" />
       <NavLi to="/admin/users" pageName="Users" />
     </>
   );
 };
-
 const UserNav = () => {
   const { logout } = useAuth();
 
