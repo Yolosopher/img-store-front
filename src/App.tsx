@@ -3,7 +3,7 @@ import { ThemeProvider } from "./components/theme-provider";
 import Router from "./router/Router";
 import { QueryClient, QueryClientProvider } from "react-query";
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 function App() {
   return (
